@@ -11,8 +11,26 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import kotlin.test.assertEquals
 
 class CitySearchTest {
+
+    infix fun Int.razyI_podzielic_na_dwa(x: Int): Int{
+        return (this * x) / 2
+    }
+
+    @Test
+    fun main(){
+
+        val a = 3
+        val b = 4
+
+        assertEquals( a razyI_podzielic_na_dwa b, 6)
+
+    }
+
+
+
 
     @Before
     fun setUp() {

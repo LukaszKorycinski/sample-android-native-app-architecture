@@ -6,13 +6,12 @@ import com.sampleandroidarchitecture.data.data_store.DataStore
 class LocalRepository(
     private val dataStore: DataStore,
 ) {
-    val cities
-        get() = dataStore.cities
+    suspend fun getCities() = dataStore.loadCities()
 
-    fun saveCity(city: CityResponseItem){
-        val savedCities = cities.toMutableList()
+    suspend fun saveCity(city: CityResponseItem){
+        val savedCities = getCities().toMutableList()
         savedCities.removeAll { it.key == city.key }
         savedCities.add(0, city)
-        dataStore.cities = savedCities
+        dataStore.saveCities(savedCities)
     }
 }

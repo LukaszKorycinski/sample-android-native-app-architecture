@@ -32,7 +32,9 @@ class CitySearchViewModel(
     }
 
     private fun fetchSavedCities(){
-        _savedCitiesState.value = localRepository.cities
+        viewModelScope.launch {
+            _savedCitiesState.value = localRepository.getCities()
+        }
     }
 
     fun saveCity(city: CityResponseItem){

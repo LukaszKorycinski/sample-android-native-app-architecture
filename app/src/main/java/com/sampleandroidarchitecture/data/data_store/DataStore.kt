@@ -17,14 +17,8 @@ class DataStore(
         const val CITIES_FILE = "cities.json"
     }
 
-    var cities: List<CityResponseItem> = loadCities()
-        set(value) {
-            field = value
-            saveCities()
-        }
-
     @OptIn(ExperimentalSerializationApi::class)
-    private fun loadCities(): List<CityResponseItem> {
+    suspend fun loadCities(): List<CityResponseItem> {
         return try {
             context.openFileInput(CITIES_FILE).use {
                 json.decodeFromStream(it)
@@ -35,7 +29,7 @@ class DataStore(
     }
 
     @OptIn(ExperimentalSerializationApi::class)
-    private fun saveCities() {
+    suspend fun saveCities(cities: List<CityResponseItem> ) {
         try {
             context.openFileOutput(CITIES_FILE, Context.MODE_PRIVATE).use {
                 json.encodeToStream(cities, it)
